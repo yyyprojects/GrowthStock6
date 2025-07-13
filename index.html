@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infographic: The DNA of a Growth Stock</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Energetic & Playful -->
+    <!-- Application Structure Plan: The infographic follows a logical narrative designed for a beginner. It starts with a high-level definition ("What is a Growth Stock?"), moves to the core identity of these companies ("Anatomy of a Growth Company"), then introduces key numbers with an interactive chart ("Decoding the Numbers"). It contrasts growth investing with other styles ("The Investing Spectrum") and concludes with the core investment thesis ("The 'Surprise' Factor"). This top-down, narrative structure tells a coherent story, making the complex topic more digestible than a simple report summary. -->
+    <!-- Visualization & Content Choices: 
+        1. Definition: Report Info -> Goal: Inform -> Viz: Large, bold text with icons. -> Justification: Creates a strong, immediate visual hook. -> Library/Method: HTML/CSS.
+        2. Anatomy: Report Info -> Goal: Organize key traits -> Viz: Icon-driven cards in a grid. -> Justification: Breaks down characteristics into easy-to-scan, visually distinct points. -> Library/Method: HTML/CSS.
+        3. P/E vs. P/S Ratios: Report Info -> Goal: Compare valuation metrics -> Viz: Bar Chart. -> Justification: A bar chart is the clearest way to compare the relative magnitudes of these ratios for different stock types. -> Library/Method: Chart.js.
+        4. Investing Spectrum: Report Info -> Goal: Compare Growth vs. Value vs. Income. -> Viz: Custom HTML/CSS diagram. -> Justification: A visual flow diagram clearly illustrates the distinct goals (Capital Gains vs. Dividends) and risk profiles better than a table. -> Library/Method: HTML/CSS.
+        5. Surprise Factor: Report Info -> Goal: Explain the driver of returns -> Viz: Custom HTML/CSS process flow. -> Justification: A simple step-by-step diagram makes the abstract concept of market surprises concrete and easy to follow. -> Library/Method: HTML/CSS.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #0B132B; color: #FFFFFF; }
+        .gradient-text { background: linear-gradient(90deg, #FFD166, #EF476F); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .card { background-color: #1C2541; border: 1px solid #3A506B; }
+        .chart-container { position: relative; width: 100%; max-width: 800px; margin-left: auto; margin-right: auto; height: 350px; max-height: 50vh; }
+        @media (min-width: 768px) { .chart-container { height: 450px; } }
+    </style>
+</head>
+<body class="antialiased">
+
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-16">
+
+        <header class="text-center mb-20">
+            <h1 class="text-5xl md:text-7xl font-black mb-4 tracking-tight">The DNA of a <span class="gradient-text">Growth Stock</span></h1>
+            <p class="max-w-3xl mx-auto text-lg text-blue-200">A visual guide to understanding companies built for explosive future expansion, not present-day profit.</p>
+        </header>
+
+        <section id="anatomy" class="mb-24">
+            <h2 class="text-4xl font-bold text-center mb-12">Anatomy of a Growth Company</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                <div class="card rounded-xl p-8 text-center transform hover:scale-105 transition-transform duration-300">
+                    <div class="text-6xl mb-4">🚀</div>
+                    <h3 class="text-2xl font-bold text-[#FFD166] mb-2">Fueling the Engine</h3>
+                    <p class="text-blue-200">They aggressively <span class="font-bold">reinvest all profits</span> back into the business—hiring, R&D, and expansion. Dividends are rare; future growth is the only priority.</p>
+                </div>
+                <div class="card rounded-xl p-8 text-center transform hover:scale-105 transition-transform duration-300">
+                    <div class="text-6xl mb-4">💡</div>
+                    <h3 class="text-2xl font-bold text-[#EF476F] mb-2">Market Disruption</h3>
+                    <p class="text-blue-200">Their focus is on <span class="font-bold">innovation and top-line revenue growth</span>, often at the expense of short-term profits. They aim to create new markets or dominate existing ones.</p>
+                </div>
+                <div class="card rounded-xl p-8 text-center transform hover:scale-105 transition-transform duration-300">
+                    <div class="text-6xl mb-4">📈</div>
+                    <h3 class="text-2xl font-bold text-[#06D6A0] mb-2">High Expectations</h3>
+                    <p class="text-blue-200">The market prices them based on their <span class="font-bold">massive future potential</span>, not current earnings. This leads to high valuation metrics that can seem "overvalued."</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="metrics" class="mb-24">
+            <h2 class="text-4xl font-bold text-center mb-4">Decoding the Numbers</h2>
+            <p class="max-w-3xl mx-auto text-center text-lg text-blue-200 mb-12">Growth stocks look expensive through traditional lenses. Their high Price-to-Earnings (P/E) and Price-to-Sales (P/S) ratios reflect the market's confidence in their future, not their present.</p>
+            <div class="card rounded-xl p-6 md:p-8">
+                <div class="chart-container">
+                    <canvas id="metricsChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <section id="spectrum" class="mb-24">
+             <h2 class="text-4xl font-bold text-center mb-12">The Investing Spectrum: A Tale of Three Goals</h2>
+             <p class="max-w-3xl mx-auto text-center text-lg text-blue-200 mb-12">Understanding growth stocks means seeing where they fit. An investor's goal—be it rapid growth, steady income, or finding a bargain—dictates their strategy.</p>
+            <div class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
+                <div class="card rounded-xl p-6 border-4 border-[#EF476F]">
+                    <h3 class="text-2xl font-bold text-[#EF476F] mb-3">Growth Investing</h3>
+                    <p class="text-blue-200 font-semibold mb-3">Goal: Maximize Capital Gains</p>
+                    <p class="text-sm text-blue-300">Focus on companies with high potential for future share price appreciation. Willing to accept higher risk and no dividends for a shot at exponential returns.</p>
+                </div>
+                <div class="flex items-center justify-center text-4xl font-bold text-blue-400">vs.</div>
+                <div class="card rounded-xl p-6 border-2 border-dashed border-blue-400">
+                     <h3 class="text-2xl font-bold text-[#FFD166] mb-3">Value & Income</h3>
+                     <p class="text-blue-200 font-semibold mb-3">Goal: Undervaluation & Dividends</p>
+                     <p class="text-sm text-blue-300">Focus on established companies trading below their intrinsic worth (Value) or those paying consistent cash dividends (Income). Typically lower risk.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="surprise-factor" class="mb-16">
+            <h2 class="text-4xl font-bold text-center mb-4">The Investor's Edge: The "Surprise" Factor</h2>
+            <p class="max-w-3xl mx-auto text-center text-lg text-blue-200 mb-12">High growth is already expected and priced in. The real returns from growth stocks come when a company consistently <span class="font-bold text-[#06D6A0]">beats</span> those already high expectations.</p>
+            <div class="flex flex-col md:flex-row items-center justify-center space-y-4 md:space-y-0 md:space-x-4 max-w-6xl mx-auto">
+                <div class="card p-4 rounded-lg text-center w-full md:w-1/4">
+                    <p class="font-bold text-lg">Market Expects</p>
+                    <p class="text-blue-300">"Company will grow 50%"</p>
+                </div>
+                <div class="text-5xl font-extrabold text-[#118AB2] self-center">→</div>
+                <div class="card p-4 rounded-lg text-center w-full md:w-1/4">
+                    <p class="font-bold text-lg">Reality Hits</p>
+                    <p class="text-blue-300">"Company actually grows 70%!"</p>
+                </div>
+                <div class="text-5xl font-extrabold text-[#118AB2] self-center">→</div>
+                <div class="card p-4 rounded-lg text-center w-full md:w-1/4 bg-[#06D6A0]/20 border border-[#06D6A0]">
+                    <p class="font-bold text-lg text-[#06D6A0]">Positive Surprise!</p>
+                    <p class="text-blue-200">Expectations Exceeded</p>
+                </div>
+                <div class="text-5xl font-extrabold text-[#06D6A0] self-center">→</div>
+                <div class="card p-4 rounded-lg text-center w-full md:w-1/4">
+                    <p class="font-bold text-lg">Stock Price Rises</p>
+                    <p class="text-blue-300">Market rewards outperformance</p>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const metricsCtx = document.getElementById('metricsChart').getContext('2d');
+            const metricsChart = new Chart(metricsCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Growth Stock', 'Value Stock', ['Market', 'Average']],
+                    datasets: [
+                        {
+                            label: 'P/E Ratio (Price-to-Earnings)',
+                            data: [80, 15, 25],
+                            backgroundColor: '#EF476F',
+                            borderColor: '#EF476F',
+                            borderWidth: 2,
+                            borderRadius: 5,
+                        },
+                        {
+                            label: 'P/S Ratio (Price-to-Sales)',
+                            data: [12, 1.5, 3],
+                            backgroundColor: '#FFD166',
+                            borderColor: '#FFD166',
+                            borderWidth: 2,
+                            borderRadius: 5,
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    indexAxis: 'y',
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            grid: { color: 'rgba(58, 80, 107, 0.5)' },
+                            ticks: { color: '#ffffff', font: { size: 14 } }
+                        },
+                        y: {
+                            grid: { display: false },
+                            ticks: { color: '#ffffff', font: { size: 14, weight: 'bold' } }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                            labels: {
+                                color: '#ffffff',
+                                font: { size: 14, weight: '600' }
+                            }
+                        },
+                        title: {
+                            display: true,
+                            text: 'Typical Valuation Ratios by Stock Type',
+                            color: '#ffffff',
+                            font: { size: 18, weight: 'bold' }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                title: function(tooltipItems) {
+                                    const item = tooltipItems[0];
+                                    let label = item.chart.data.labels[item.dataIndex];
+                                    if (Array.isArray(label)) {
+                                      return label.join(' ');
+                                    }
+                                    return label;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
